@@ -1,7 +1,7 @@
 ## Contributing
 
-[fork]: https://github.com/actions/create-release/fork
-[pr]: https://github.com/actions/create-release/compare
+[fork]: https://github.com/adhityan/check-release-node/fork
+[pr]: https://github.com/adhityan/check-release-node/compare
 [style]: https://github.com/styleguide/js
 [code-of-conduct]: CODE_OF_CONDUCT.md
 

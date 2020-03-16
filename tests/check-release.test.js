@@ -3,7 +3,7 @@ jest.mock('@actions/github');
 
 const core = require('@actions/core');
 const { GitHub, context } = require('@actions/github');
-const run = require('../src/create-release.js');
+const run = require('../src/check-release.js');
 
 /* eslint-disable no-undef */
 describe('Check Release', () => {
