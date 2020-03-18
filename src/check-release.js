@@ -8,7 +8,7 @@ const generateChangelog = require('./generateChangelog');
 async function run() {
   try {
     const githubToken = core.getInput('github_token', { required: true });
-    const github = new GitHub(process.env.GITHUB_TOKEN);
+    const github = new GitHub(githubToken);
     const { owner, repo } = context.repo;
 
     const packagePath = path.join(process.env.GITHUB_WORKSPACE, 'package.json');
