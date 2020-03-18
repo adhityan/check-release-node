@@ -23112,6 +23112,7 @@ async function run() {
     if (getPastVersions === 'true') core.setOutput('all_past_versions', strigifiedReleaseVersions);
   } catch (error) {
     core.setFailed(error.message);
+    console.error('error', error);
   }
 }
 
