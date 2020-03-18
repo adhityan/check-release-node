@@ -1,0 +1,21 @@
+name: 'Check for a new release'
+description: 'Check if a new release is required by checking package.json'
+author: 'Adhityan'
+inputs:
+  need_past_versions:
+    description: '`true` to get a list of all past versions'
+    required: false
+    default: 'false'
+outputs:
+  has_new_version:
+    description: '`true` if this introduces a new version'
+  has_existing_version:
+    description: '`true` if there already is a matching published version'
+  all_past_versions:
+    description: 'A list of all past published versions'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+branding:
+  icon: 'tag'
+  color: 'gray-dark'
