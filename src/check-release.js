@@ -6,14 +6,14 @@ const { GitHub, context } = require('@actions/github');
 
 async function run() {
   try {
+    if (!process.env.GITHUB_TOKEN) core.setFailed('This step requires access to the default github actions token');
     const github = new GitHub(process.env.GITHUB_TOKEN);
-    if (!github) throw new Error('This step requires access to the default github actions token');
     const { owner, repo } = context.repo;
 
     const packagePath = path.join(process.env.GITHUB_WORKSPACE, 'package.json');
     const packageExists = fs.existsSync(packagePath);
     if (!packageExists)
-      throw new Error('Please use the actions/checkout@v2 step to check out a node project before calling this step');
+      core.setFailed('Please use the actions/checkout@v2 step to check out a node project before calling this step');
 
     const getReleasesData = await github.repos.listReleases({
       owner,

@@ -13,6 +13,10 @@ outputs:
     description: '`true` if there already is a matching published version'
   all_past_versions:
     description: 'A list of all past published versions'
+  current_release_version:
+    description: 'The release version from current package.json'
+  maximum_past_release_version:
+    description: 'The last maximum release version from releases list'
 runs:
   using: 'node12'
   main: 'dist/index.js'
