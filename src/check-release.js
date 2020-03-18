@@ -4,7 +4,7 @@ const semver = require('semver');
 const core = require('@actions/core');
 const { GitHub, context } = require('@actions/github');
 const conventionalChangelog = require('conventional-changelog');
-const stream = through2();
+const through2 = require('through2');
 
 function streamToString (stream) {
   const chunks = []
@@ -54,6 +54,7 @@ async function run() {
     const getPastVersions = core.getInput('need_past_versions', { required: false });
     const generateConventioanlChangelog = core.getInput('generate_conventional_changelog', { required: false });
     if(generateConventioanlChangelog === 'true') {
+      const stream = through2();
       conventionalChangelog().pipe(stream);
       const changeLog = await streamToString(stream);
       console.log('changeLog', changeLog);

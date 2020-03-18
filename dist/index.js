@@ -23049,7 +23049,7 @@ const semver = __webpack_require__(876);
 const core = __webpack_require__(470);
 const { GitHub, context } = __webpack_require__(469);
 const conventionalChangelog = __webpack_require__(684);
-const stream = through2();
+const through2 = __webpack_require__(576);
 
 function streamToString (stream) {
   const chunks = []
@@ -23099,6 +23099,7 @@ async function run() {
     const getPastVersions = core.getInput('need_past_versions', { required: false });
     const generateConventioanlChangelog = core.getInput('generate_conventional_changelog', { required: false });
     if(generateConventioanlChangelog === 'true') {
+      const stream = through2();
       conventionalChangelog().pipe(stream);
       const changeLog = await streamToString(stream);
       console.log('changeLog', changeLog);
