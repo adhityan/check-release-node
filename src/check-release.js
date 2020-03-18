@@ -3,7 +3,7 @@ const path = require('path');
 const semver = require('semver');
 const core = require('@actions/core');
 const { GitHub, context } = require('@actions/github');
-const conventionalChangelog = require('conventional-changelog');
+const standardChangelog = require('standard-changelog');
 const through2 = require('through2');
 
 function streamToString (stream) {
@@ -55,7 +55,7 @@ async function run() {
     const generateConventioanlChangelog = core.getInput('generate_conventional_changelog', { required: false });
     if(generateConventioanlChangelog === 'true') {
       const stream = through2();
-      conventionalChangelog({}).pipe(stream);
+      standardChangelog().pipe(stream);
       const changeLog = await streamToString(stream);
       console.log('changeLog', changeLog);
     }
