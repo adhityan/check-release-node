@@ -3,6 +3,17 @@ const path = require('path');
 const semver = require('semver');
 const core = require('@actions/core');
 const { GitHub, context } = require('@actions/github');
+const conventionalChangelog = require('conventional-changelog');
+const stream = through2();
+
+function streamToString (stream) {
+  const chunks = []
+  return new Promise((resolve, reject) => {
+    stream.on('data', chunk => chunks.push(chunk))
+    stream.on('error', reject)
+    stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')))
+  })
+}
 
 async function run() {
   try {
@@ -39,7 +50,14 @@ async function run() {
     let isNewVersion = false;
     const versionExists = releaseVersions.some(e => e === `v${packageVersion}`);
     if (!versionExists && semver.gt(packageVersion, maxVersion)) isNewVersion = true;
+    
     const getPastVersions = core.getInput('need_past_versions', { required: false });
+    const generateConventioanlChangelog = core.getInput('generate_conventional_changelog', { required: false });
+    if(generateConventioanlChangelog === 'true') {
+      conventionalChangelog().pipe(stream);
+      const changeLog = await streamToString(stream);
+      console.log('changeLog', changeLog);
+    }
 
     core.setOutput('has_new_version', `${isNewVersion}`);
     core.setOutput('has_existing_version', `${versionExists}`);
