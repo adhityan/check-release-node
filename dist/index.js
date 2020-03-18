@@ -8437,53 +8437,53 @@ module.exports = validRange
 
 const fs = __webpack_require__(747);
 const path = __webpack_require__(622);
-const semver = __webpack_require__(876)
+const semver = __webpack_require__(876);
 const core = __webpack_require__(470);
 const { GitHub, context } = __webpack_require__(469);
 
 async function run() {
   try {
     const github = new GitHub(process.env.GITHUB_TOKEN);
-    if(!github) throw new Error('This step requires access to the default github actions token');
+    if (!github) throw new Error('This step requires access to the default github actions token');
     const { owner, repo } = context.repo;
 
     const packagePath = path.join(process.env.GITHUB_WORKSPACE, 'package.json');
-    const packageExists = fs.existsSync(packagePath)
-    if(!packageExists) throw new Error('Please use the actions/checkout@v2 step to check out a node project before calling this step')
+    const packageExists = fs.existsSync(packagePath);
+    if (!packageExists)
+      throw new Error('Please use the actions/checkout@v2 step to check out a node project before calling this step');
 
     const getReleasesData = await github.repos.listReleases({
       owner,
       repo
-    })
+    });
     const { data: releases } = getReleasesData;
     const releaseVersions = releases.map(e => e.name);
-    const strigifiedReleaseVersions = JSON.stringify(releaseVersions)
+    const strigifiedReleaseVersions = JSON.stringify(releaseVersions);
     core.debug(`Release versions: ${strigifiedReleaseVersions}`);
 
     let maxVersion = '0.0.0';
-    for (let i = 0; i < releaseVersions.length; i++) {
+    for (let i = 0; i < releaseVersions.length; i += 1) {
       const e = releaseVersions[i];
       const clean = semver.valid(semver.coerce(e));
-      if(semver.gt(clean, maxVersion)) maxVersion = clean;
+      if (semver.gt(clean, maxVersion)) maxVersion = clean;
     }
     core.debug(`Maximum release version ${maxVersion}`);
 
-    const package = JSON.parse(fs.readFileSync(packagePath));
-    const packageVersion = package.version;
+    const packageJson = JSON.parse(fs.readFileSync(packagePath));
+    const packageVersion = packageJson.version;
     core.debug(`packageVersion ${packageVersion}`);
 
     let isNewVersion = false;
     const versionExists = releaseVersions.some(e => e === `v${packageVersion}`);
-    if(!versionExists && semver.gt(packageVersion, maxVersion)) isNewVersion = true;
+    if (!versionExists && semver.gt(packageVersion, maxVersion)) isNewVersion = true;
     const getPastVersions = core.getInput('need_past_versions', { required: false });
-    
+
     core.setOutput('has_new_version', `${isNewVersion}`);
     core.setOutput('has_existing_version', `${versionExists}`);
     core.setOutput('current_release_version', `${packageVersion}`);
     core.setOutput('maximum_past_release_version', `${maxVersion}`);
-    if(getPastVersions === 'true') core.setOutput('all_past_versions', strigifiedReleaseVersions);
-  } 
-  catch (error) {
+    if (getPastVersions === 'true') core.setOutput('all_past_versions', strigifiedReleaseVersions);
+  } catch (error) {
     core.setFailed(error.message);
   }
 }
