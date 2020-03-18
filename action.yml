@@ -11,7 +11,7 @@ inputs:
     required: false
     default: 'true'
   githubToken:
-    description: 'You can pass ${{ secrets.GITHUB_TOKEN }} to this'
+    description: 'You can pass secrets.GITHUB_TOKEN to this'
     required: true
 outputs:
   has_new_version:
