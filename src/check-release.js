@@ -7,7 +7,7 @@ const generateChangelog = require('./generateChangelog');
 
 async function run() {
   try {
-    if (!process.env.GITHUB_TOKEN) core.setFailed('This step requires access to the default github actions token');
+    const githubToken = core.getInput('github_token', { required: true });
     const github = new GitHub(process.env.GITHUB_TOKEN);
     const { owner, repo } = context.repo;
 

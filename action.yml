@@ -10,6 +10,9 @@ inputs:
     description: '`true` to generate a changelog string for conventional commits'
     required: false
     default: 'true'
+  githubToken:
+    description: 'You can pass ${{ secrets.GITHUB_TOKEN }} to this'
+    required: true
 outputs:
   has_new_version:
     description: '`true` if this introduces a new version'
