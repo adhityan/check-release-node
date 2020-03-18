@@ -3,17 +3,7 @@ const path = require('path');
 const semver = require('semver');
 const core = require('@actions/core');
 const { GitHub, context } = require('@actions/github');
-const standardChangelog = require('standard-changelog');
-const through2 = require('through2');
-
-function streamToString (stream) {
-  const chunks = []
-  return new Promise((resolve, reject) => {
-    stream.on('data', chunk => chunks.push(chunk))
-    stream.on('error', reject)
-    stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')))
-  })
-}
+const generateChangelog = require('./generateChangelog');
 
 async function run() {
   try {
@@ -53,10 +43,8 @@ async function run() {
     
     const getPastVersions = core.getInput('need_past_versions', { required: false });
     const generateConventioanlChangelog = core.getInput('generate_conventional_changelog', { required: false });
-    if(generateConventioanlChangelog === 'true') {
-      const stream = through2();
-      standardChangelog().pipe(stream);
-      const changeLog = await streamToString(stream);
+    if(generateConventioanlChangelog === 'true' && isNewVersion) {
+      const changeLog = await generateChangelog('v', 'angular', packageVersion, 1);
       console.log('changeLog', changeLog);
     }
 
