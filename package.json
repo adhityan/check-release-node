@@ -7,7 +7,6 @@
     "lint": "eslint 'src/**.js' 'tests/**.js' --fix",
     "test": "eslint 'src/**.js' 'tests/**.js' && jest --coverage",
     "build": "ncc build src/main.js",
-    "precommit": "npm run build && git add dist/"
   },
   "repository": {
     "type": "git",
@@ -27,16 +26,16 @@
   },
   "devDependencies": {
     "@zeit/ncc": "^0.21.1",
-    "eslint": "^5.13.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^3.6.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-prettier": "^2.7.0",
-    "eslint-plugin-react": "^7.12.4",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.19.0",
     "jest": "^25.1.0",
     "prettier": "^1.19.1",
-    "husky": "^3.0.5"
+    "husky": "^4.2.3"
   },
   "jest": {
     "testEnvironment": "node",
