@@ -55,7 +55,7 @@ async function run() {
     const generateConventioanlChangelog = core.getInput('generate_conventional_changelog', { required: false });
     if(generateConventioanlChangelog === 'true') {
       const stream = through2();
-      conventionalChangelog().pipe(stream);
+      conventionalChangelog({}).pipe(stream);
       const changeLog = await streamToString(stream);
       console.log('changeLog', changeLog);
     }
