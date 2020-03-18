@@ -12,14 +12,15 @@ function streamToString (stream) {
 
 module.exports = (tagPrefix, preset, currentVersion, releaseCount) => new Promise((resolve) => {
     const stream = through2();
-    const changelogStream = conventionalChangelog({
-        preset,
-        releaseCount,
+    const changelogStream = conventionalChangelog(
+        {
+            preset,
+            releaseCount,
         },
         {
-        version: currentVersion,
-        currentTag: `${tagPrefix}${currentVersion}`,
-        tagPrefix,
+            version: currentVersion,
+            currentTag: `${tagPrefix}${currentVersion}`,
+            tagPrefix,
         },
     )
 
