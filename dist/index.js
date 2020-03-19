@@ -47618,6 +47618,7 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
       }
 
       context = _.assign(context, config.context)
+      console.log('config', config);
 
       if (options.pkg) {
         if (pkgObj.state === 'fulfilled') {
