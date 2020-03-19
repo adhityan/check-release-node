@@ -47472,6 +47472,7 @@ function done(stream, er, data) {
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
 function __ncc_wildcard$0 (arg) {
+  console.log('arg', arg);
   if (arg === "bitbucket.json") return __webpack_require__(396);
   else if (arg === "github.json") {
     var x  = __webpack_require__(543)
@@ -47691,12 +47692,15 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
       if (context.host && (!context.issue || !context.commit || !parserOpts || !parserOpts.referenceActions)) {
         var type
 
+      
         if (context.host) {
+          console.log('context', context);
           var match = context.host.match(rhosts)
           if (match) {
             type = match[0]
           }
         } else if (repo && repo.type) {
+          console.log('repo', repo);
           type = repo.type
         }
 
@@ -47704,7 +47708,6 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
           hostOpts = __ncc_wildcard$0(type)
           console.log('type', type);
           console.log('hostOpts', hostOpts);
-          console.log('context', context);
 
           context = _.assign({
             issue: hostOpts.issue,
