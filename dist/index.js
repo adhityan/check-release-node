@@ -47473,7 +47473,11 @@ function done(stream, er, data) {
 
 function __ncc_wildcard$0 (arg) {
   if (arg === "bitbucket.json") return __webpack_require__(396);
-  else if (arg === "github.json") return __webpack_require__(543);
+  else if (arg === "github.json") {
+    var x  = __webpack_require__(543)
+    console.log('x', x);
+    return x;
+  }
   else if (arg === "gitlab.json") return __webpack_require__(553);
 }
 'use strict'
@@ -47698,6 +47702,7 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
 
         if (type) {
           hostOpts = __ncc_wildcard$0(type)
+          console.log('type', type);
           console.log('hostOpts', hostOpts);
           console.log('context', context);
 
