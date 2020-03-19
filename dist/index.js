@@ -47698,6 +47698,8 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
 
         if (type) {
           hostOpts = __ncc_wildcard$0(type)
+          console.log('hostOpts', hostOpts);
+          console.log('context', context);
 
           context = _.assign({
             issue: hostOpts.issue,
