@@ -53910,6 +53910,7 @@ exports.getUserAgent = getUserAgent;
 /* 800 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
+const fs = __webpack_require__(747)
 const through2 = __webpack_require__(576);
 const conventionalChangelog = __webpack_require__(684)
 
@@ -53937,8 +53938,10 @@ module.exports = (tagPrefix, preset, currentVersion, releaseCount) => new Promis
     )
 
     changelogStream
-        .pipe(stream)
-        .on('finish', () => resolve(streamToString(stream)))
+        // .pipe(stream)
+        // .on('finish', () => resolve(streamToString(stream)))
+        .pipe(fs.createWriteStream(fileName))
+        .on('finish', resolve)
 })
 
 /***/ }),

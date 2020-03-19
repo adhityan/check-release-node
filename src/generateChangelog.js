@@ -1,3 +1,4 @@
+const fs = require('fs')
 const through2 = require('through2');
 const conventionalChangelog = require('conventional-changelog')
 
@@ -25,6 +26,8 @@ module.exports = (tagPrefix, preset, currentVersion, releaseCount) => new Promis
     )
 
     changelogStream
-        .pipe(stream)
-        .on('finish', () => resolve(streamToString(stream)))
+        // .pipe(stream)
+        // .on('finish', () => resolve(streamToString(stream)))
+        .pipe(fs.createWriteStream(fileName))
+        .on('finish', resolve)
 })
