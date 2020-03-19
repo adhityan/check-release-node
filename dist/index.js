@@ -47535,6 +47535,8 @@ function guessNextTag (previousTag, version) {
 }
 
 function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpts, gitRawExecOpts) {
+  console.log('params', arguments);
+  console.log('---------------------------------------------------------------------------------------------------');
   var configPromise
   var pkgPromise
   var gitRemoteOriginUrlPromise
@@ -47694,8 +47696,9 @@ function mergeConfig (options, context, gitRawCommitsOpts, parserOpts, writerOpt
 
       
         if (context.host) {
-          console.log('context', context);
+          console.log('context.host', context.host);
           var match = context.host.match(rhosts)
+          console.log('match', match);
           if (match) {
             type = match[0]
           }
