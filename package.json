@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint 'src/**.js' 'tests/**.js' --fix",
     "test": "eslint 'src/**.js' 'tests/**.js' && jest --coverage",
+    "pretty": "prettier --write '**'",
     "build": "ncc build src/main.js"
   },
   "repository": {

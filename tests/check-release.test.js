@@ -8,38 +8,38 @@ const run = require('../src/check-release.js');
 
 /* eslint-disable no-undef */
 describe('List Release', () => {
-  let listReleases;
+    let listReleases;
 
-  beforeEach(() => {
-    listReleases = jest.fn().mockReturnValueOnce({
-      data: []
+    beforeEach(() => {
+        listReleases = jest.fn().mockReturnValueOnce({
+            data: [],
+        });
+
+        context.repo = {
+            owner: 'owner',
+            repo: 'repo',
+        };
+
+        const github = {
+            repos: {
+                listReleases,
+            },
+        };
+
+        GitHub.mockImplementation(() => github);
+        process.env.GITHUB_TOKEN = 'mock';
+        process.env.GITHUB_WORKSPACE = 'mock';
     });
 
-    context.repo = {
-      owner: 'owner',
-      repo: 'repo'
-    };
+    test('List releases endpoint is called', async () => {
+        fs.existsSync = jest.fn().mockReturnValueOnce(true);
+        fs.readFileSync = jest.fn().mockReturnValueOnce('{ "version": "1.0.0" }');
 
-    const github = {
-      repos: {
-        listReleases
-      }
-    };
+        await run();
 
-    GitHub.mockImplementation(() => github);
-    process.env.GITHUB_TOKEN = 'mock';
-    process.env.GITHUB_WORKSPACE = 'mock';
-  });
-
-  test('List releases endpoint is called', async () => {
-    fs.existsSync = jest.fn().mockReturnValueOnce(true);
-    fs.readFileSync = jest.fn().mockReturnValueOnce('{ "version": "1.0.0" }');
-
-    await run();
-
-    expect(listReleases).toHaveBeenCalledWith({
-      owner: 'owner',
-      repo: 'repo'
+        expect(listReleases).toHaveBeenCalledWith({
+            owner: 'owner',
+            repo: 'repo',
+        });
     });
-  });
 });
