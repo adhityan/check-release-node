@@ -3,7 +3,6 @@ const path = require('path');
 const semver = require('semver');
 const core = require('@actions/core');
 const { GitHub, context } = require('@actions/github');
-const generateChangelog = require('./generateChangelog');
 
 async function run() {
   try {
@@ -40,13 +39,7 @@ async function run() {
     let isNewVersion = false;
     const versionExists = releaseVersions.some(e => e === `v${packageVersion}`);
     if (!versionExists && semver.gt(packageVersion, maxVersion)) isNewVersion = true;
-    
     const getPastVersions = core.getInput('need_past_versions', { required: false });
-    const generateConventioanlChangelog = core.getInput('generate_conventional_changelog', { required: false });
-    if(generateConventioanlChangelog === 'true' && isNewVersion) {
-      const changeLog = await generateChangelog('v', 'angular', packageVersion, 1);
-      console.log('changeLog', changeLog);
-    }
 
     core.setOutput('has_new_version', `${isNewVersion}`);
     core.setOutput('has_existing_version', `${versionExists}`);

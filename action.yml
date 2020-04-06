@@ -6,10 +6,6 @@ inputs:
     description: '`true` to get a list of all past versions'
     required: false
     default: 'false'
-  generate_conventional_changelog:
-    description: '`true` to generate a changelog string for conventional commits'
-    required: false
-    default: 'true'
   githubToken:
     description: 'You can pass secrets.GITHUB_TOKEN to this'
     required: true
@@ -24,8 +20,6 @@ outputs:
     description: 'The release version from current package.json'
   maximum_past_release_version:
     description: 'The last maximum release version from releases list'
-  conventional_changelog:
-    description: 'The conventional changelog for the commits'
 runs:
   using: 'node12'
   main: 'dist/index.js'

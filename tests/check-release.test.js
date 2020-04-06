@@ -12,9 +12,7 @@ describe('List Release', () => {
 
   beforeEach(() => {
     listReleases = jest.fn().mockReturnValueOnce({
-      data: {
-        releases: []
-      }
+      data: []
     });
 
     context.repo = {
@@ -35,6 +33,7 @@ describe('List Release', () => {
 
   test('List releases endpoint is called', async () => {
     fs.existsSync = jest.fn().mockReturnValueOnce(true);
+    fs.readFileSync = jest.fn().mockReturnValueOnce('{ "version": "1.0.0" }');
 
     await run();
 
